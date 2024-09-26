@@ -6,10 +6,26 @@ def resolucy(refutacion):
     clausulas = []
     # Agregar las clausulas a la lista
     clausulas.extend(refutacion)
+
+    # Extraer la hipotesis
+    hipotesis = clausulas.pop(0)
+    # Remover el simbolo de negacion de la hipotesis
+    hipotesisParaComparacion = hipotesis[1:]
     # Iterar sobre las clausulas
     while clausulas:
         # Extraer la primera clausula
         clausula = clausulas.pop(0)
+        # Verificar comparadores logicos
+        # Si el comparador es "OR", tratamos cada item de manera individual
+        if clausula[1] == "∨":
+            # Comparar la hipotesis con la clausula, si hay terminos iguales, se resuelve
+            if hipotesisParaComparacion == clausula[0]:
+                clausula = [clausula[1]]
+            if hipotesisParaComparacion == clausula[1]:
+                clausula = [clausula[0]]
+
+        # COMENZAR A COMPARAR LA CLAUSULA RESSULTANTE CON LAS DEMAS CLAUSULAS
+
         # Iterar sobre las clausulas restantes
         for otra_clausula in clausulas[1:]:
             # Verificar si se pueden resolver
